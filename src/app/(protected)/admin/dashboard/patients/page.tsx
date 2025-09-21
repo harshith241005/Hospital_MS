@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,6 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -32,10 +35,56 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { patients } from "@/lib/data";
+import { patients as initialPatients } from "@/lib/data";
+import { Patient } from "@/lib/types";
 import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
+
+const initialPatientState: Omit<Patient, 'id'> = {
+    name: '',
+    age: 0,
+    gender: '',
+    disease: '',
+    doctorAssigned: '',
+    contact: '',
+    email: '',
+};
 
 export default function ManagePatientsPage() {
+  const [patients, setPatients] = useState<Patient[]>(initialPatients);
+  const [selectedPatient, setSelectedPatient] = useState<Patient | Omit<Patient, 'id'>>(initialPatientState);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setSelectedPatient(prev => ({ ...prev!, [id]: value }));
+  };
+
+  const handleAddNewPatient = () => {
+    const newPatient: Patient = {
+      id: `P${String(patients.length + 1).padStart(3, '0')}`,
+      ...selectedPatient as Omit<Patient, 'id'>,
+      age: Number((selectedPatient as Omit<Patient, 'id'>).age)
+    };
+    setPatients(prev => [...prev, newPatient]);
+    setIsAddDialogOpen(false);
+  };
+
+  const handleEditPatient = (patient: Patient) => {
+    setSelectedPatient(patient);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdatePatient = () => {
+      setPatients(prev => prev.map(p => p.id === (selectedPatient as Patient).id ? { ...selectedPatient, age: Number(selectedPatient.age) } as Patient : p));
+      setIsEditDialogOpen(false);
+  };
+  
+  const handleDeletePatient = (patientId: string) => {
+      setPatients(prev => prev.filter(p => p.id !== patientId));
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -45,9 +94,9 @@ export default function ManagePatientsPage() {
             Add, edit, or remove patient records.
           </p>
         </div>
-        <Dialog>
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button>Add New Patient</Button>
+            <Button onClick={() => setSelectedPatient(initialPatientState)}>Add New Patient</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -58,54 +107,36 @@ export default function ManagePatientsPage() {
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  defaultValue="Jane Doe"
-                  className="col-span-3"
-                />
+                <Label htmlFor="name" className="text-right">Name</Label>
+                <Input id="name" value={selectedPatient.name} onChange={handleInputChange} className="col-span-3" />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="age" className="text-right">
-                  Age
-                </Label>
-                <Input id="age" type="number" defaultValue="30" className="col-span-3" />
+                <Label htmlFor="age" className="text-right">Age</Label>
+                <Input id="age" type="number" value={selectedPatient.age} onChange={handleInputChange} className="col-span-3" />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="gender" className="text-right">
-                  Gender
-                </Label>
-                <Input id="gender" defaultValue="Female" className="col-span-3" />
+                <Label htmlFor="gender" className="text-right">Gender</Label>
+                <Input id="gender" value={selectedPatient.gender} onChange={handleInputChange} className="col-span-3" />
               </div>
                <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="condition" className="text-right">
-                  Condition
-                </Label>
-                <Input id="condition" defaultValue="Common Cold" className="col-span-3" />
+                <Label htmlFor="disease" className="text-right">Condition</Label>
+                <Input id="disease" value={selectedPatient.disease} onChange={handleInputChange} className="col-span-3" />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="doctor" className="text-right">
-                  Doctor
-                </Label>
-                <Input id="doctor" defaultValue="Dr. Aditi Sharma" className="col-span-3" />
+                <Label htmlFor="doctorAssigned" className="text-right">Doctor</Label>
+                <Input id="doctorAssigned" value={selectedPatient.doctorAssigned} onChange={handleInputChange} className="col-span-3" />
               </div>
                <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="contact" className="text-right">
-                  Contact
-                </Label>
-                <Input id="contact" type="tel" defaultValue="9876543210" className="col-span-3" />
+                <Label htmlFor="contact" className="text-right">Contact</Label>
+                <Input id="contact" type="tel" value={selectedPatient.contact} onChange={handleInputChange} className="col-span-3" />
               </div>
                <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="email" className="text-right">
-                  Email
-                </Label>
-                <Input id="email" type="email" defaultValue="jane.doe@example.com" className="col-span-3" />
+                <Label htmlFor="email" className="text-right">Email</Label>
+                <Input id="email" type="email" value={selectedPatient.email} onChange={handleInputChange} className="col-span-3" />
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Save Patient</Button>
+              <Button type="submit" onClick={handleAddNewPatient}>Save Patient</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -156,8 +187,8 @@ export default function ManagePatientsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleEditPatient(patient)}>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleDeletePatient(patient.id)}>Delete</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -167,6 +198,54 @@ export default function ManagePatientsPage() {
           </Table>
         </CardContent>
       </Card>
+      
+      {/* Edit Patient Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Edit Patient Details</DialogTitle>
+              <DialogDescription>
+                Update the patient's information below.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">Name</Label>
+                <Input id="name" value={selectedPatient.name} onChange={handleInputChange} className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="age" className="text-right">Age</Label>
+                <Input id="age" type="number" value={selectedPatient.age} onChange={handleInputChange} className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="gender" className="text-right">Gender</Label>
+                <Input id="gender" value={selectedPatient.gender} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="disease" className="text-right">Condition</Label>
+                <Input id="disease" value={selectedPatient.disease} onChange={handleInputChange} className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="doctorAssigned" className="text-right">Doctor</Label>
+                <Input id="doctorAssigned" value={selectedPatient.doctorAssigned} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="contact" className="text-right">Contact</Label>
+                <Input id="contact" type="tel" value={selectedPatient.contact} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="email" className="text-right">Email</Label>
+                <Input id="email" type="email" value={selectedPatient.email} onChange={handleInputChange} className="col-span-3" />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button type="submit" onClick={handleUpdatePatient}>Save Changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
     </div>
   );
 }
