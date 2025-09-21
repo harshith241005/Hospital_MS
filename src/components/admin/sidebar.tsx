@@ -13,9 +13,8 @@ import {
   Stethoscope,
   Users,
   Calendar,
-  ClipboardUser,
+  ClipboardList,
   BarChart,
-  Settings,
 } from 'lucide-react';
 import { Logo } from '../dashboard/logo';
 
@@ -24,7 +23,7 @@ const menuItems = [
   { href: '/admin/dashboard/doctors', label: 'Manage Doctors', icon: Stethoscope },
   { href: '/admin/dashboard/patients', label: 'Manage Patients', icon: Users },
   { href: '/admin/dashboard/appointments', label: 'All Appointments', icon: Calendar },
-  { href: '/admin/dashboard/staff', label: 'Manage Staff', icon: ClipboardUser },
+  { href: '/admin/dashboard/staff', label: 'Manage Staff', icon: ClipboardList },
   { href: '/admin/dashboard/reports', label: 'Reports & Analytics', icon: BarChart },
 ];
 
