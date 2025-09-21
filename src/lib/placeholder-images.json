@@ -27,27 +27,27 @@
     },
     {
       "id": "about-gallery-1",
-      "description": "A state-of-the-art operating theatre.",
-      "imageUrl": "https://picsum.photos/seed/operatingroom/600/400",
-      "imageHint": "operating room"
+      "description": "Modern hospital facilities.",
+      "imageUrl": "https://img.freepik.com/premium-photo/modern-hospital-facilities_810293-109223.jpg",
+      "imageHint": "hospital facilities"
     },
     {
       "id": "about-gallery-2",
       "description": "A clean and modern hospital corridor.",
-      "imageUrl": "https://picsum.photos/seed/corridor/600/400",
+      "imageUrl": "https://media.istockphoto.com/id/1454794642/photo/empty-corridor-hospital.jpg?s=612x612&w=0&k=20&c=w_c_i1Vfx2XoVXRiHtrPSlzPl5WYU0Uq_8osik9inXA=",
       "imageHint": "hospital corridor"
     },
     {
       "id": "about-gallery-3",
-      "description": "A modern diagnostic lab with scientists at work.",
-      "imageUrl": "https://picsum.photos/seed/medicallab/600/400",
-      "imageHint": "medical lab"
+      "description": "A vital hospital corridor interconnecting patient rooms.",
+      "imageUrl": "https://static.vecteezy.com/system/resources/previews/028/252/071/non_2x/medical-facilitys-core-hospital-corridor-interconnecting-vital-patient-rooms-ai-generated-photo.jpg",
+      "imageHint": "hospital hallway"
     },
     {
-        "id": "about-gallery-4",
-        "description": "A comfortable and well-equipped patient room.",
-        "imageUrl": "https://picsum.photos/seed/patientroom/600/400",
-        "imageHint": "patient room"
+      "id": "about-gallery-4",
+      "description": "A pharmacist explaining something to a doctor.",
+      "imageUrl": "https://media.istockphoto.com/id/1476261444/photo/young-pharmaceutic-seller-explaining-something-to-doctor-in-hospital.jpg?s=612x612&w=0&k=20&c=pEJ7PefqTUcR5hPhB3jLIvAUOzPA6FVPlw391Oxqnrw=",
+      "imageHint": "hospital pharmacy"
     }
   ]
 }
