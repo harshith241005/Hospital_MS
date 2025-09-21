@@ -1,0 +1,63 @@
+'use client';
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useAuth } from "@/lib/auth/use-auth";
+import { medicalReports, patients } from "@/lib/data";
+import { Download, Upload } from "lucide-react";
+
+
+export default function MedicalReportsPage() {
+    const { user } = useAuth();
+  
+    const patient = patients.find(p => p.email === user?.email);
+    const myReports = medicalReports.filter(r => r.patientId === patient?.id);
+
+
+    return (
+        <div className="space-y-4">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight">Medical Reports</h1>
+                    <p className="text-muted-foreground">Upload and download your medical reports.</p>
+                </div>
+                 <Button>
+                    <Upload className="mr-2 h-4 w-4" />
+                    Upload Report
+                </Button>
+            </div>
+             <Card>
+                <CardHeader>
+                    <CardTitle>My Reports</CardTitle>
+                    <CardDescription>A list of all your uploaded medical reports.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                <Table>
+                    <TableHeader>
+                    <TableRow>
+                        <TableHead>Report Title</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead><span className="sr-only">Actions</span></TableHead>
+                    </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                    {myReports.map((report) => (
+                        <TableRow key={report.id}>
+                        <TableCell className="font-medium">{report.title}</TableCell>
+                        <TableCell>{report.date}</TableCell>
+                        <TableCell className="text-right">
+                           <Button variant="outline" size="sm">
+                                <Download className="mr-2 h-4 w-4" />
+                                Download
+                           </Button>
+                        </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+                </CardContent>
+            </Card>
+        </div>
+    )
+}
