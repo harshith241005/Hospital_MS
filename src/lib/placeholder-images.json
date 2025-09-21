@@ -27,27 +27,27 @@
     },
     {
       "id": "about-gallery-1",
-      "description": "A high-tech ICU room with advanced medical equipment.",
-      "imageUrl": "https://picsum.photos/seed/icu/600/400",
-      "imageHint": "hospital icu"
+      "description": "A state-of-the-art operating theatre.",
+      "imageUrl": "https://picsum.photos/seed/operatingroom/600/400",
+      "imageHint": "operating room"
     },
     {
       "id": "about-gallery-2",
-      "description": "A modern diagnostic lab with scientists at work.",
-      "imageUrl": "https://picsum.photos/seed/lab/600/400",
-      "imageHint": "medical lab"
+      "description": "A clean and modern hospital corridor.",
+      "imageUrl": "https://picsum.photos/seed/corridor/600/400",
+      "imageHint": "hospital corridor"
     },
     {
       "id": "about-gallery-3",
-      "description": "The bright and welcoming reception area of the hospital.",
-      "imageUrl": "https://picsum.photos/seed/reception/600/400",
-      "imageHint": "hospital reception"
+      "description": "A modern diagnostic lab with scientists at work.",
+      "imageUrl": "https://picsum.photos/seed/medicallab/600/400",
+      "imageHint": "medical lab"
     },
     {
         "id": "about-gallery-4",
-        "description": "A state-of-the-art operating theatre.",
-        "imageUrl": "https://picsum.photos/seed/surgery/600/400",
-        "imageHint": "operating room"
+        "description": "A comfortable and well-equipped patient room.",
+        "imageUrl": "https://picsum.photos/seed/patientroom/600/400",
+        "imageHint": "patient room"
     }
   ]
 }
