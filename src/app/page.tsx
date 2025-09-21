@@ -11,27 +11,31 @@ function HomeComponent() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        router.push('/login');
-      } else {
-        switch (user.role) {
-          case 'admin':
-            router.push('/admin/dashboard');
-            break;
-          case 'doctor':
-            router.push('/doctor/dashboard');
-            break;
-          case 'patient':
-            router.push('/patient/dashboard');
-            break;
-          default:
-            router.push('/login');
-        }
+    if (loading) {
+      // Wait until the auth state is fully loaded
+      return;
+    }
+
+    if (!user) {
+      router.push('/login');
+    } else {
+      switch (user.role) {
+        case 'admin':
+          router.push('/admin/dashboard');
+          break;
+        case 'doctor':
+          router.push('/doctor/dashboard');
+          break;
+        case 'patient':
+          router.push('/patient/dashboard');
+          break;
+        default:
+          router.push('/login');
       }
     }
   }, [user, loading, router]);
 
+  // Show a loading skeleton while the auth state is being determined
   return (
     <div className="flex h-screen w-full items-center justify-center">
       <div className="flex flex-col items-center space-y-4">
