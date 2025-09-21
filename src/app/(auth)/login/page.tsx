@@ -15,8 +15,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Hospital } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { AuthProvider } from '@/lib/auth/auth-context';
 
-export default function LoginPage() {
+function LoginPageContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -103,4 +104,13 @@ export default function LoginPage() {
       </Card>
     </div>
   );
+}
+
+
+export default function LoginPage() {
+  return (
+    <AuthProvider>
+      <LoginPageContent />
+    </AuthProvider>
+  )
 }
