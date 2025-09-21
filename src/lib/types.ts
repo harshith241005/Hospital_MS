@@ -74,3 +74,16 @@ export interface Bill {
   status: 'paid' | 'pending';
   details: string;
 }
+
+
+export interface Advisory {
+    id: string;
+    title: string;
+    details: string;
+}
+
+
+export interface HealthVitals {
+    bloodPressure: { date: string; systolic: number; diastolic: number; }[];
+    bloodSugar: { date: string; level: number; }[];
+}

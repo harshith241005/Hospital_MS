@@ -3,40 +3,63 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/use-auth";
-import { CalendarPlus, FileText } from "lucide-react";
+import { healthAdvisories, appointments } from "@/lib/data";
+import { CalendarPlus, FileText, HeartPulse, AlertCircle } from "lucide-react";
 import Link from "next/link";
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar } from "recharts";
+
+
+const yearlyVisitsData = [
+  { year: '2021', visits: 2 },
+  { year: '2022', visits: 4 },
+  { year: '2023', visits: 3 },
+  { year: '2024', visits: 5 },
+];
+
 
 export default function PatientDashboardPage() {
     const { user } = useAuth();
+    const upcomingAppointment = appointments.find(a => a.patientId === 'P001' && a.status === 'confirmed');
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-6">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Welcome, {user?.name}!</h1>
                 <p className="text-muted-foreground">
-                Manage your appointments, view reports, and more.
+                Manage your appointments, view reports, and stay on top of your health.
                 </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-                <Card>
+            {upcomingAppointment && (
+                 <Card className="bg-primary text-primary-foreground">
                     <CardHeader>
-                        <CardTitle>Book a New Appointment</CardTitle>
+                        <CardTitle>Upcoming Appointment</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p>You have an appointment with <strong>{upcomingAppointment.doctorName}</strong> on <strong>{upcomingAppointment.date}</strong> at <strong>{upcomingAppointment.time}</strong>.</p>
+                    </CardContent>
+                </Card>
+            )}
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                 <Card>
+                    <CardHeader>
+                        <CardTitle>Book Appointment</CardTitle>
                         <CardDescription>Find a doctor and schedule your next visit.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Button asChild>
                             <Link href="/patient/dashboard/book-appointment">
                                 <CalendarPlus className="mr-2 h-4 w-4" />
-                                Book Appointment
+                                Book Now
                             </Link>
                         </Button>
                     </CardContent>
                 </Card>
                  <Card>
                     <CardHeader>
-                        <CardTitle>View Medical Reports</CardTitle>
-                        <CardDescription>Access your lab results and other medical documents.</CardDescription>
+                        <CardTitle>Medical Reports</CardTitle>
+                        <CardDescription>Access your lab results and documents.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Button asChild variant="outline">
@@ -45,6 +68,59 @@ export default function PatientDashboardPage() {
                                 View Reports
                             </Link>
                         </Button>
+                    </CardContent>
+                </Card>
+                 <Card>
+                    <CardHeader>
+                        <CardTitle>Health Vitals</CardTitle>
+                        <CardDescription>Track your health metrics over time.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Button asChild variant="outline">
+                            <Link href="/patient/dashboard/vitals">
+                                <HeartPulse className="mr-2 h-4 w-4" />
+                                View Vitals
+                            </Link>
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+                <Card className="lg:col-span-3">
+                    <CardHeader>
+                        <CardTitle>Health Advisories</CardTitle>
+                        <CardDescription>Personalized tips and reminders for you.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <ul className="space-y-4">
+                        {healthAdvisories.map((advisory) => (
+                            <li key={advisory.id} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 pt-1">
+                                <AlertCircle className="h-5 w-5 text-primary" />
+                            </div>
+                            <div>
+                                <p className="font-semibold">{advisory.title}</p>
+                                <p className="text-sm text-muted-foreground">{advisory.details}</p>
+                            </div>
+                            </li>
+                        ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+                <Card className="lg:col-span-2">
+                    <CardHeader>
+                        <CardTitle>Yearly Visits</CardTitle>
+                        <CardDescription>Your appointment history over the years.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pl-2">
+                        <ResponsiveContainer width="100%" height={200}>
+                            <BarChart data={yearlyVisitsData}>
+                                <XAxis dataKey="year" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                                <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
+                                <Bar dataKey="visits" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                            </BarChart>
+                        </ResponsiveContainer>
                     </CardContent>
                 </Card>
             </div>

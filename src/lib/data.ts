@@ -1,4 +1,4 @@
-import type { Doctor, Patient, Appointment, Staff, Prescription, MedicalReport, Bill } from './types';
+import type { Doctor, Patient, Appointment, Staff, Prescription, MedicalReport, Bill, Advisory, HealthVitals } from './types';
 
 export const doctors: Doctor[] = [
   {
@@ -190,3 +190,38 @@ export const bills: Bill[] = [
   { id: 'B002', patientId: 'P001', date: '2024-08-20', amount: 500, status: 'pending', details: 'Follow-up Consultation' },
   { id: 'B003', patientId: 'P002', date: '2024-08-16', amount: 8000, status: 'paid', details: 'MRI Scan & Consultation' },
 ];
+
+
+export const healthAdvisories: Advisory[] = [
+    { id: 'HA001', title: 'Follow-up Reminder', details: 'You have a follow-up due with Dr. Aditi Sharma on August 29th for your hypertension check-up.' },
+    { id: 'HA002', title: 'Annual Check-up Recommendation', details: 'Based on your age and medical history, we recommend scheduling a yearly full-body check-up.' },
+    { id: 'HA003', title: 'Medication Advisory', details: 'Your last prescription included antibiotics. Please ensure you complete the full course and avoid alcohol.' },
+];
+
+export const doctorAdvisories: Advisory[] = [
+    { id: 'DA001', title: 'Schedule Update', details: 'You have 5 appointments scheduled for today. Your first is at 10:00 AM with Rahul Mehta.' },
+    { id: 'DA002', title: 'New Guideline: Diabetes Care', details: 'New hospital guideline: Prescribe Metformin XR for long-term type 2 diabetes patients for better glycemic control.' },
+    { id: 'DA003', title: 'Staff Meeting Announcement', details: 'A mandatory hospital staff meeting is scheduled for 4 PM today in the main conference hall.' },
+];
+
+export const adminAdvisories: Advisory[] = [
+    { id: 'AA001', title: 'Weekly Occupancy Report', details: 'Hospital occupancy is at 78% this week. The General Ward is nearing full capacity.' },
+    { id: 'AA002', title: 'Department Performance', details: 'The Department of Cardiology has the maximum number of bookings this month (32 appointments).' },
+    { id: 'AA003', title: 'Resource Alert: Blood Bank', details: 'The O-negative blood bank level is critically low. Please coordinate with the lab to replenish stock immediately.' },
+];
+
+
+export const healthVitals: HealthVitals = {
+    bloodPressure: [
+        { date: '2024-05-01', systolic: 130, diastolic: 85 },
+        { date: '2024-06-01', systolic: 128, diastolic: 82 },
+        { date: '2024-07-01', systolic: 135, diastolic: 88 },
+        { date: '2024-08-01', systolic: 132, diastolic: 86 },
+    ],
+    bloodSugar: [
+        { date: '2024-05-01', level: 110 },
+        { date: '2024-06-01', level: 115 },
+        { date: '2024-07-01', level: 108 },
+        { date: '2024-08-01', level: 112 },
+    ]
+}

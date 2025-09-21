@@ -7,18 +7,24 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarFooter,
 } from '@/components/ui/sidebar';
 import {
-  CalendarDays,
+  LayoutDashboard,
   Calendar,
   ClipboardPenLine,
   FileText,
   FlaskConical,
+  LogOut,
+  Settings,
 } from 'lucide-react';
 import { Logo } from '../dashboard/logo';
+import { useAuth } from '@/lib/auth/use-auth';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+
 
 const menuItems = [
-  { href: '/doctor/dashboard', label: 'My Schedule', icon: CalendarDays },
+  { href: '/doctor/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/doctor/dashboard/appointments', label: 'Manage Appointments', icon: Calendar },
   { href: '/doctor/dashboard/prescriptions', label: 'Prescriptions', icon: ClipboardPenLine },
   { href: '/doctor/dashboard/records', label: 'Patient Medical Records', icon: FileText },
@@ -27,6 +33,16 @@ const menuItems = [
 
 export function DoctorSidebar() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+
+  const getInitials = (name: string) => {
+    const names = name.split(' ');
+    if (names.length > 1) {
+      return `${names[0][0]}${names[names.length - 1][0]}`;
+    }
+    return name ? name[0] : '';
+  };
+
 
   return (
     <>
@@ -51,6 +67,34 @@ export function DoctorSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
+      <SidebarFooter>
+         {user && (
+            <div className="flex items-center gap-3 p-2 rounded-md transition-colors">
+                <Avatar className="h-9 w-9">
+                    <AvatarImage src="/avatars/01.png" alt={`@${user.name}`} />
+                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                    <span className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</span>
+                    <span className="text-xs text-sidebar-foreground/70 truncate">{user.role}</span>
+                </div>
+            </div>
+         )}
+        <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                <Settings/>
+                <span>Settings</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton onClick={logout}>
+                <LogOut/>
+                <span>Logout</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </>
   );
 }

@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/lib/auth/use-auth';
-import { LogOut } from 'lucide-react';
+import { LogOut, Settings } from 'lucide-react';
 
 export function UserNav() {
   const { user, logout } = useAuth();
@@ -26,7 +26,7 @@ export function UserNav() {
     if (names.length > 1) {
       return `${names[0][0]}${names[names.length - 1][0]}`;
     }
-    return names[0][0];
+    return name ? name[0] : '';
   };
 
   return (
@@ -50,8 +50,12 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {/* Add other items like Profile, Settings here if needed */}
+           <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
