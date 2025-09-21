@@ -1,4 +1,4 @@
-import type { Doctor, Patient, Appointment, Staff, Prescription, MedicalReport, Bill, Advisory, HealthVitals } from './types';
+import type { Doctor, Patient, Appointment, Staff, Prescription, MedicalReport, Bill, Advisory, HealthVitals, Feedback, Room, InventoryItem } from './types';
 
 export const doctors: Doctor[] = [
   {
@@ -224,4 +224,25 @@ export const healthVitals: HealthVitals = {
         { date: '2024-07-01', level: 108 },
         { date: '2024-08-01', level: 112 },
     ]
-}
+};
+
+export const feedbacks: Feedback[] = [
+    { id: 'F001', patientId: 'P002', patientName: 'Priya Reddy', doctorId: 'D002', doctorName: 'Dr. Ramesh Verma', rating: 5, comment: 'Dr. Verma was very attentive and explained everything clearly. Highly recommended.', date: '2024-08-16' },
+    { id: 'F002', patientId: 'P003', patientName: 'Ankit Gupta', doctorId: 'D005', doctorName: 'Dr. Meera Joshi', rating: 4, comment: 'Good experience, but the waiting time was a bit long.', date: '2024-08-16' },
+];
+
+export const rooms: Room[] = [
+    { id: 'R101', number: '101', type: 'General Ward', status: 'occupied', patientId: 'P001', patientName: 'Rahul Mehta' },
+    { id: 'R102', number: '102', type: 'General Ward', status: 'available' },
+    { id: 'R201', number: '201', type: 'Private Room', status: 'available' },
+    { id: 'R202', number: '202', type: 'Private Room', status: 'occupied', patientId: 'P002', patientName: 'Priya Reddy' },
+    { id: 'ICU01', number: 'ICU-01', type: 'ICU', status: 'occupied', patientId: 'P005', patientName: 'Vikash Yadav' },
+    { id: 'ICU02', number: 'ICU-02', type: 'ICU', status: 'available' },
+];
+
+export const inventory: InventoryItem[] = [
+    { id: 'INV001', name: 'Paracetamol 500mg', stock: 250, status: 'in-stock' },
+    { id: 'INV002', name: 'Amlodipine 5mg', stock: 40, status: 'low-stock' },
+    { id: 'INV003', name: 'Amoxicillin 250mg', stock: 150, status: 'in-stock' },
+    { id: 'INV004', name: 'Gauze Pads', stock: 10, status: 'out-of-stock' },
+];

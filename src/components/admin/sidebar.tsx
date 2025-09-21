@@ -18,6 +18,10 @@ import {
   BarChart,
   LogOut,
   Settings,
+  Building,
+  BedDouble,
+  MessageSquare,
+  Info
 } from 'lucide-react';
 import { Logo } from '../dashboard/logo';
 import { useAuth } from '@/lib/auth/use-auth';
@@ -29,8 +33,11 @@ const menuItems = [
   { href: '/admin/dashboard/doctors', label: 'Manage Doctors', icon: Stethoscope },
   { href: '/admin/dashboard/patients', label: 'Manage Patients', icon: Users },
   { href: '/admin/dashboard/appointments', label: 'All Appointments', icon: Calendar },
+  { href: '/admin/dashboard/rooms', label: 'Room Management', icon: BedDouble },
   { href: '/admin/dashboard/staff', label: 'Manage Staff', icon: ClipboardList },
   { href: '/admin/dashboard/reports', label: 'Reports & Analytics', icon: BarChart },
+  { href: '/admin/dashboard/feedback', label: 'Feedback', icon: MessageSquare },
+  { href: '/admin/dashboard/about', label: 'About Hospital', icon: Info },
 ];
 
 export function AdminSidebar() {

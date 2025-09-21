@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/use-auth";
 import { healthAdvisories, appointments } from "@/lib/data";
-import { CalendarPlus, FileText, HeartPulse, AlertCircle } from "lucide-react";
+import { CalendarPlus, FileText, HeartPulse, AlertCircle, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar } from "recharts";
+import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 
 const yearlyVisitsData = [
@@ -20,15 +22,27 @@ const yearlyVisitsData = [
 export default function PatientDashboardPage() {
     const { user } = useAuth();
     const upcomingAppointment = appointments.find(a => a.patientId === 'P001' && a.status === 'confirmed');
+    const patientHero = PlaceHolderImages.find(p => p.id === 'patient-hero');
 
     return (
         <div className="space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight">Welcome, {user?.name}!</h1>
-                <p className="text-muted-foreground">
-                Manage your appointments, view reports, and stay on top of your health.
-                </p>
-            </div>
+            <Card className="overflow-hidden">
+                <div className="relative h-48 w-full">
+                    {patientHero && (
+                        <Image
+                            src={patientHero.imageUrl}
+                            alt={patientHero.description}
+                            fill
+                            className="object-cover"
+                            data-ai-hint={patientHero.imageHint}
+                        />
+                    )}
+                    <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
+                        <h1 className="text-3xl font-bold tracking-tight text-white">Welcome, {user?.name}!</h1>
+                        <p className="text-muted-foreground text-white/80">Manage your appointments, view reports, and stay on top of your health.</p>
+                    </div>
+                </div>
+            </Card>
 
             {upcomingAppointment && (
                  <Card className="bg-primary text-primary-foreground">
@@ -123,6 +137,14 @@ export default function PatientDashboardPage() {
                         </ResponsiveContainer>
                     </CardContent>
                 </Card>
+            </div>
+
+             {/* Support Widget Stub */}
+            <div className="fixed bottom-6 right-6">
+                <Button className="rounded-full w-14 h-14 shadow-lg">
+                    <MessageSquare className="h-6 w-6" />
+                    <span className="sr-only">Support Chat</span>
+                </Button>
             </div>
         </div>
     )

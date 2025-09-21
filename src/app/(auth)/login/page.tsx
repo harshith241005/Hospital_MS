@@ -16,6 +16,8 @@ import { Label } from '@/components/ui/label';
 import { Hospital } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AuthProvider } from '@/lib/auth/auth-context';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 function LoginPageContent() {
   const [email, setEmail] = useState('');
@@ -30,7 +32,6 @@ function LoginPageContent() {
     setIsLoading(true);
     try {
       login(email);
-      // Determine redirection based on email
       let path = '/';
       if (email.toLowerCase() === 'admin@hms.com') {
         path = '/admin/dashboard';
@@ -50,58 +51,73 @@ function LoginPageContent() {
     }
   };
 
+  const loginHeroImage = PlaceHolderImages.find(p => p.id === 'login-hero');
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <Card className="mx-auto max-w-sm w-full">
-        <CardHeader className="text-center">
-            <div className="flex justify-center items-center mb-4">
-                <Hospital className="h-10 w-10 text-primary"/>
-            </div>
-          <CardTitle className="text-2xl font-bold">MediSync Pro</CardTitle>
-          <CardDescription>
-            Enter your credentials to access your dashboard
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin} className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input 
-                id="password" 
-                type="password" 
-                required 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Signing In...' : 'Sign In'}
-            </Button>
-             <div className="text-center text-sm text-muted-foreground mt-4">
-                <p>Use one of the following to login:</p>
-                <ul className="list-disc list-inside">
-                    <li>admin@hms.com</li>
-                    <li>doctor@hms.com</li>
-                    <li>patient@hms.com</li>
-                </ul>
-                <p className="mt-2">(Any password will work)</p>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
+       <div className="flex items-center justify-center py-12">
+            <Card className="mx-auto max-w-sm w-full shadow-lg">
+                <CardHeader className="text-center">
+                    <div className="flex justify-center items-center mb-4">
+                        <Hospital className="h-10 w-10 text-primary"/>
+                    </div>
+                <CardTitle className="text-2xl font-bold">MediTrack Pro</CardTitle>
+                <CardDescription>
+                    Enter your credentials to access your dashboard
+                </CardDescription>
+                </CardHeader>
+                <CardContent>
+                <form onSubmit={handleLogin} className="grid gap-4">
+                    <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        placeholder="m@example.com"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={isLoading}
+                    />
+                    </div>
+                    <div className="grid gap-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input 
+                        id="password" 
+                        type="password" 
+                        required 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        disabled={isLoading}
+                    />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? 'Signing In...' : 'Sign In'}
+                    </Button>
+                    <div className="text-center text-sm text-muted-foreground mt-4">
+                        <p>Use one of the following to login:</p>
+                        <ul className="list-disc list-inside">
+                            <li>admin@hms.com</li>
+                            <li>doctor@hms.com</li>
+                            <li>patient@hms.com</li>
+                        </ul>
+                        <p className="mt-2">(Any password will work)</p>
+                    </div>
+                </form>
+                </CardContent>
+            </Card>
+      </div>
+      <div className="hidden bg-muted lg:block relative">
+        {loginHeroImage && (
+            <Image
+                src={loginHeroImage.imageUrl}
+                alt={loginHeroImage.description}
+                fill
+                className="object-cover"
+                data-ai-hint={loginHeroImage.imageHint}
+            />
+        )}
+      </div>
     </div>
   );
 }

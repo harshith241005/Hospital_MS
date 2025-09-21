@@ -87,3 +87,31 @@ export interface HealthVitals {
     bloodPressure: { date: string; systolic: number; diastolic: number; }[];
     bloodSugar: { date: string; level: number; }[];
 }
+
+
+export interface Feedback {
+    id: string;
+    patientId: string;
+    patientName: string;
+    doctorId: string;
+    doctorName: string;
+    rating: number;
+    comment: string;
+    date: string;
+}
+
+export interface Room {
+    id: string;
+    number: string;
+    type: 'General Ward' | 'Private Room' | 'ICU';
+    status: 'available' | 'occupied';
+    patientId?: string;
+    patientName?: string;
+}
+
+export interface InventoryItem {
+    id: string;
+    name: string;
+    stock: number;
+    status: 'in-stock' | 'low-stock' | 'out-of-stock';
+}

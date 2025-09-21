@@ -8,8 +8,10 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { appointments, doctors, patients, adminAdvisories } from "@/lib/data";
-import { Activity, Users, Stethoscope, AlertCircle, BarChart, PieChart } from "lucide-react";
+import { Activity, Users, Stethoscope, AlertCircle } from "lucide-react";
 import { ResponsiveContainer, BarChart as RechartsBarChart, XAxis, YAxis, Bar, PieChart as RechartsPieChart, Pie, Cell } from "recharts";
+import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 
 const departmentData = [
@@ -32,15 +34,28 @@ export default function AdminDashboardPage() {
   const totalPatients = patients.length;
   const totalDoctors = doctors.length;
   const totalAppointments = appointments.length;
+  const adminHero = PlaceHolderImages.find(p => p.id === 'admin-hero');
 
   return (
     <div className="space-y-6">
-       <div className="flex justify-between items-start">
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
-                <p className="text-muted-foreground">Hospital-wide overview and analytics.</p>
+      <Card className="overflow-hidden">
+        <div className="relative h-48 w-full">
+            {adminHero && (
+                <Image
+                    src={adminHero.imageUrl}
+                    alt={adminHero.description}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={adminHero.imageHint}
+                />
+            )}
+            <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
+                <h1 className="text-3xl font-bold tracking-tight text-white">Admin Dashboard</h1>
+                <p className="text-muted-foreground text-white/80">Hospital-wide overview and analytics.</p>
             </div>
-      </div>
+        </div>
+      </Card>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

@@ -18,6 +18,7 @@ import {
   CreditCard,
   HeartPulse,
   LogOut,
+  MessageSquare,
 } from 'lucide-react';
 import { Logo } from '../dashboard/logo';
 import { useAuth } from '@/lib/auth/use-auth';
@@ -31,6 +32,7 @@ const menuItems = [
   { href: '/patient/dashboard/medical-reports', label: 'Medical Reports', icon: FileText },
   { href: '/patient/dashboard/billing', label: 'Billing & Payments', icon: CreditCard },
   { href: '/patient/dashboard/vitals', label: 'Health Vitals', icon: HeartPulse },
+  { href: '/patient/dashboard/feedback', label: 'Feedback', icon: MessageSquare },
 ];
 
 export function PatientSidebar() {

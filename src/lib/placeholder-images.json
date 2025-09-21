@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "login-hero",
+      "description": "A modern and clean hospital reception area.",
+      "imageUrl": "https://picsum.photos/seed/hospitallogin/1920/1080",
+      "imageHint": "hospital reception"
+    },
+    {
+      "id": "patient-hero",
+      "description": "A doctor consulting with a patient in a bright, friendly environment.",
+      "imageUrl": "https://picsum.photos/seed/patienthero/1200/400",
+      "imageHint": "doctor patient"
+    },
+    {
+      "id": "doctor-hero",
+      "description": "A team of professional doctors collaborating in a hospital setting.",
+      "imageUrl": "https://picsum.photos/seed/doctorhero/1200/400",
+      "imageHint": "doctor team"
+    },
+    {
+      "id": "admin-hero",
+      "description": "An aerial view of a large, modern hospital building.",
+      "imageUrl": "https://picsum.photos/seed/adminhero/1200/400",
+      "imageHint": "hospital building"
+    },
+    {
+      "id": "about-gallery-1",
+      "description": "A high-tech ICU room with advanced medical equipment.",
+      "imageUrl": "https://picsum.photos/seed/icu/600/400",
+      "imageHint": "hospital icu"
+    },
+    {
+      "id": "about-gallery-2",
+      "description": "A modern diagnostic lab with scientists at work.",
+      "imageUrl": "https://picsum.photos/seed/lab/600/400",
+      "imageHint": "medical lab"
+    },
+    {
+      "id": "about-gallery-3",
+      "description": "The bright and welcoming reception area of the hospital.",
+      "imageUrl": "https://picsum.photos/seed/reception/600/400",
+      "imageHint": "hospital reception"
+    },
+    {
+        "id": "about-gallery-4",
+        "description": "A state-of-the-art operating theatre.",
+        "imageUrl": "https://picsum.photos/seed/surgery/600/400",
+        "imageHint": "operating room"
+    }
+  ]
 }

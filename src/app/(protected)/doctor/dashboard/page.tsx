@@ -1,8 +1,13 @@
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { doctorAdvisories, appointments } from "@/lib/data";
-import { AlertCircle, Clock, Users } from "lucide-react";
+import { AlertCircle, Clock, Users, Video } from "lucide-react";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import Image from "next/image";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Button } from "@/components/ui/button";
 
 const diagnosesData = [
     { name: 'Hypertension', value: 4 },
@@ -16,15 +21,27 @@ const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3
 
 export default function DoctorDashboardPage() {
   const todayAppointments = appointments.filter(a => a.date === '2024-08-15').length; // Assuming today is Aug 15 for demo
+  const doctorHero = PlaceHolderImages.find(p => p.id === 'doctor-hero');
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Doctor's Dashboard</h1>
-        <p className="text-muted-foreground">
-          Your daily schedule, patient insights, and key advisories.
-        </p>
-      </div>
+      <Card className="overflow-hidden">
+        <div className="relative h-48 w-full">
+            {doctorHero && (
+                <Image
+                    src={doctorHero.imageUrl}
+                    alt={doctorHero.description}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={doctorHero.imageHint}
+                />
+            )}
+            <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
+                <h1 className="text-3xl font-bold tracking-tight text-white">Doctor's Dashboard</h1>
+                <p className="text-muted-foreground text-white/80">Your daily schedule, patient insights, and key advisories.</p>
+            </div>
+        </div>
+      </Card>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
@@ -49,6 +66,15 @@ export default function DoctorDashboardPage() {
             <p className="text-xs text-muted-foreground">
               Under your care.
             </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Tele-Consult</CardTitle>
+            <Video className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <Button>Start Call</Button>
           </CardContent>
         </Card>
       </div>
