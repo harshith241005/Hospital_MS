@@ -32,6 +32,7 @@ export default function MedicalReportsPage() {
                 <Table>
                     <TableHeader>
                     <TableRow>
+                        <TableHead>Patient</TableHead>
                         <TableHead>Report Title</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead>Uploaded by</TableHead>
@@ -43,7 +44,8 @@ export default function MedicalReportsPage() {
                         const doctor = doctors.find(d => d.id === report.doctorId);
                         return (
                             <TableRow key={report.id}>
-                            <TableCell className="font-medium">{report.title}</TableCell>
+                            <TableCell className="font-medium">{patient?.name}</TableCell>
+                            <TableCell>{report.title}</TableCell>
                             <TableCell>{report.date}</TableCell>
                             <TableCell>{doctor?.name || 'N/A'}</TableCell>
                             <TableCell className="text-right">
