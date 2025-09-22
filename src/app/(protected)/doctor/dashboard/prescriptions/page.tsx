@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { patients, prescriptions } from "@/lib/data";
+import { patients, prescriptions, doctors } from "@/lib/data";
 import {
   Table,
   TableBody,
@@ -25,8 +27,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAuth } from "@/lib/auth/use-auth";
 
 export default function PrescriptionsPage() {
+  const { user } = useAuth();
+  const doctor = doctors.find(d => d.email === user?.email);
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
       <Card className="lg:col-span-3">
@@ -37,6 +43,10 @@ export default function PrescriptionsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
+           <div className="grid gap-2">
+            <Label htmlFor="doctor">Doctor</Label>
+            <Input id="doctor" value={doctor?.name || ''} disabled />
+          </div>
           <div className="grid gap-2">
             <Label htmlFor="patient">Patient</Label>
             <Select>
@@ -80,6 +90,7 @@ export default function PrescriptionsPage() {
                 <TableHead>Patient</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Medicines</TableHead>
+                <TableHead>Prescribed by</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -90,6 +101,7 @@ export default function PrescriptionsPage() {
                   <TableCell>
                     {p.medicines.map(m => `${m.medicine} (${m.dosage})`).join(', ')}
                   </TableCell>
+                   <TableCell>{p.doctorName}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
