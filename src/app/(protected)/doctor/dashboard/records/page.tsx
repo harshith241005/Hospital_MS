@@ -96,6 +96,26 @@ export default function PatientReportsPage() {
     });
   };
 
+  const handleDownload = (report: MedicalReport) => {
+    const content = `Medical Report
+-----------------
+Title: ${report.title}
+Patient: ${patients.find(p => p.id === report.patientId)?.name || 'N/A'}
+Date: ${report.date}
+Uploaded by: ${doctors.find(d => d.id === report.doctorId)?.name || 'N/A'}
+
+This is a sample report file.`;
+    
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${report.title.replace(/\s+/g, '_')}_${report.date}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
@@ -164,7 +184,7 @@ export default function PatientReportsPage() {
                   <TableCell>{r.title}</TableCell>
                    <TableCell>{r.date}</TableCell>
                    <TableCell className="text-right">
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={() => handleDownload(r)}>
                             <Download className="mr-2 h-4 w-4" />
                             Download
                         </Button>

@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useAuth } from "@/lib/auth/use-auth";
 import { medicalReports, patients, doctors } from "@/lib/data";
 import { Download } from "lucide-react";
+import type { MedicalReport } from "@/lib/types";
 
 
 export default function MedicalReportsPage() {
@@ -13,6 +14,27 @@ export default function MedicalReportsPage() {
   
     const patient = patients.find(p => p.email === user?.email);
     const myReports = medicalReports.filter(r => r.patientId === patient?.id);
+
+    const handleDownload = (report: MedicalReport) => {
+        const content = `Medical Report
+-----------------
+Title: ${report.title}
+Patient: ${patient?.name || 'N/A'}
+Date: ${report.date}
+Uploaded by: ${doctors.find(d => d.id === report.doctorId)?.name || 'N/A'}
+
+This is a sample report file.`;
+        
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${report.title.replace(/\s+/g, '_')}_${report.date}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
 
 
     return (
@@ -49,7 +71,7 @@ export default function MedicalReportsPage() {
                             <TableCell>{report.date}</TableCell>
                             <TableCell>{doctor?.name || 'N/A'}</TableCell>
                             <TableCell className="text-right">
-                               <Button variant="outline" size="sm">
+                               <Button variant="outline" size="sm" onClick={() => handleDownload(report)}>
                                     <Download className="mr-2 h-4 w-4" />
                                     Download
                                </Button>
