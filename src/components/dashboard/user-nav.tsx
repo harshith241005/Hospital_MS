@@ -18,6 +18,8 @@ export function UserNav() {
   }
 
   const getInitials = (name: string) => {
+    if (user?.role === 'admin') return 'A';
+
     const names = name.split(' ');
     if (names.length > 1) {
       return `${names[0][0]}${names[names.length - 1][0]}`;
