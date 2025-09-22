@@ -91,9 +91,15 @@ export function AdminSidebar() {
          )}
         <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Settings/>
-                <span>Settings</span>
+              <SidebarMenuButton
+                href="/admin/dashboard/settings"
+                isActive={pathname === '/admin/dashboard/settings'}
+                asChild
+              >
+                <a href="/admin/dashboard/settings">
+                  <Settings/>
+                  <span>Settings</span>
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
