@@ -61,6 +61,7 @@ export interface Prescription {
 export interface MedicalReport {
   id: string;
   patientId: string;
+  doctorId: string;
   title: string;
   date: string;
   fileUrl: string; // a dummy url

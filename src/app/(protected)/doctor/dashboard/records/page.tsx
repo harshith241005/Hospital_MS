@@ -60,7 +60,7 @@ export default function PatientReportsPage() {
   };
 
   const handleUploadReport = () => {
-    if (!newReport.patientId || !newReport.title || !newReport.file) {
+    if (!newReport.patientId || !newReport.title || !newReport.file || !doctor) {
       toast({
         variant: 'destructive',
         title: 'Missing Information',
@@ -75,6 +75,7 @@ export default function PatientReportsPage() {
     const newReportData: MedicalReport = {
         id: `MR${String(reports.length + 1).padStart(3, '0')}`,
         patientId: newReport.patientId,
+        doctorId: doctor.id,
         title: newReport.title,
         date: newReport.date,
         fileUrl: `/reports/${newReport.file.name}`

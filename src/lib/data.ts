@@ -180,9 +180,9 @@ export const prescriptions: Prescription[] = [
 
 
 export const medicalReports: MedicalReport[] = [
-  { id: 'MR001', patientId: 'P001', title: 'Blood Test Report', date: '2024-08-14', fileUrl: '/reports/blood-test-p001.pdf' },
-  { id: 'MR002', patientId: 'P001', title: 'Chest X-Ray', date: '2024-07-20', fileUrl: '/reports/xray-p001.pdf' },
-  { id: 'MR003', patientId: 'P002', title: 'MRI Scan', date: '2024-08-09', fileUrl: '/reports/mri-p002.pdf' },
+  { id: 'MR001', patientId: 'P001', doctorId: 'D001', title: 'Blood Test Report', date: '2024-08-14', fileUrl: '/reports/blood-test-p001.pdf' },
+  { id: 'MR002', patientId: 'P001', doctorId: 'D001', title: 'Chest X-Ray', date: '2024-07-20', fileUrl: '/reports/xray-p001.pdf' },
+  { id: 'MR003', patientId: 'P002', doctorId: 'D002', title: 'MRI Scan', date: '2024-08-09', fileUrl: '/reports/mri-p002.pdf' },
 ];
 
 export const bills: Bill[] = [
