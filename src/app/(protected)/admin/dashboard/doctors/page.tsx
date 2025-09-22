@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,15 +24,62 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { doctors } from "@/lib/data";
+import { doctors as initialDoctors } from "@/lib/data";
 import { MoreHorizontal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import type { Doctor } from "@/lib/types";
+
+
+const initialDoctorState: Omit<Doctor, 'id'> = {
+    name: '',
+    specialization: '',
+    experience: '',
+    email: '',
+    phone: '',
+    availability: '',
+};
 
 export default function ManageDoctorsPage() {
+  const [doctors, setDoctors] = useState<Doctor[]>(initialDoctors);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | Omit<Doctor, 'id'>>(initialDoctorState);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setSelectedDoctor(prev => ({ ...prev!, [id]: value }));
+  };
+
+  const handleAddNewDoctor = () => {
+    const newDoctor: Doctor = {
+      id: `D${String(doctors.length + 1).padStart(3, '0')}`,
+      ...(selectedDoctor as Omit<Doctor, 'id'>),
+    };
+    setDoctors(prev => [...prev, newDoctor]);
+    setIsAddDialogOpen(false);
+  };
+
+  const handleEditDoctor = (doctor: Doctor) => {
+    setSelectedDoctor(doctor);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateDoctor = () => {
+      setDoctors(prev => prev.map(d => d.id === (selectedDoctor as Doctor).id ? selectedDoctor as Doctor : d));
+      setIsEditDialogOpen(false);
+  };
+  
+  const handleDeleteDoctor = (doctorId: string) => {
+      setDoctors(prev => prev.filter(d => d.id !== doctorId));
+  }
+
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -38,9 +87,9 @@ export default function ManageDoctorsPage() {
             <h1 className="text-3xl font-bold tracking-tight">Manage Doctors</h1>
             <p className="text-muted-foreground">Add, edit, or remove doctor profiles.</p>
         </div>
-        <Dialog>
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button>Add New Doctor</Button>
+            <Button onClick={() => setSelectedDoctor(initialDoctorState)}>Add New Doctor</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
@@ -52,19 +101,31 @@ export default function ManageDoctorsPage() {
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="name" className="text-right">Name</Label>
-                <Input id="name" defaultValue="Dr. John Doe" className="col-span-3" />
+                <Input id="name" value={selectedDoctor.name} onChange={handleInputChange} className="col-span-3" />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="specialization" className="text-right">Specialization</Label>
-                <Input id="specialization" defaultValue="Cardiologist" className="col-span-3" />
+                <Input id="specialization" value={selectedDoctor.specialization} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="experience" className="text-right">Experience</Label>
+                <Input id="experience" value={selectedDoctor.experience} onChange={handleInputChange} className="col-span-3" />
               </div>
                <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="email" className="text-right">Email</Label>
-                <Input id="email" type="email" defaultValue="john.doe@hms.com" className="col-span-3" />
+                <Input id="email" type="email" value={selectedDoctor.email} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="phone" className="text-right">Phone</Label>
+                <Input id="phone" type="tel" value={selectedDoctor.phone} onChange={handleInputChange} className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="availability" className="text-right">Availability</Label>
+                <Input id="availability" value={selectedDoctor.availability} onChange={handleInputChange} className="col-span-3" />
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Save Doctor</Button>
+              <Button type="submit" onClick={handleAddNewDoctor}>Save Doctor</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -107,8 +168,8 @@ export default function ManageDoctorsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleEditDoctor(doctor)}>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleDeleteDoctor(doctor.id)}>Delete</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -118,6 +179,50 @@ export default function ManageDoctorsPage() {
           </Table>
         </CardContent>
       </Card>
+
+       {/* Edit Doctor Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Edit Doctor Details</DialogTitle>
+              <DialogDescription>
+                Update the doctor's information below.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">Name</Label>
+                <Input id="name" value={selectedDoctor.name} onChange={handleInputChange} className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="specialization" className="text-right">Specialization</Label>
+                <Input id="specialization" value={selectedDoctor.specialization} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="experience" className="text-right">Experience</Label>
+                <Input id="experience" value={selectedDoctor.experience} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="email" className="text-right">Email</Label>
+                <Input id="email" type="email" value={selectedDoctor.email} onChange={handleInputChange} className="col-span-3" />
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="phone" className="text-right">Phone</Label>
+                <Input id="phone" type="tel" value={selectedDoctor.phone} onChange={handleInputChange} className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="availability" className="text-right">Availability</Label>
+                <Input id="availability" value={selectedDoctor.availability} onChange={handleInputChange} className="col-span-3" />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button type="submit" onClick={handleUpdateDoctor}>Save Changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
     </div>
   );
 }
