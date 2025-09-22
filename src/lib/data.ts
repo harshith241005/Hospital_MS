@@ -232,12 +232,12 @@ export const feedbacks: Feedback[] = [
 ];
 
 export const rooms: Room[] = [
-    { id: 'R101', number: '101', type: 'General Ward', status: 'occupied', capacity: 4, patientId: 'P001', patientName: 'Rahul Mehta' },
-    { id: 'R102', number: '102', type: 'General Ward', status: 'available', capacity: 4 },
-    { id: 'R201', number: '201', type: 'Private Room', status: 'available', capacity: 1 },
-    { id: 'R202', number: '202', type: 'Private Room', status: 'occupied', capacity: 1, patientId: 'P002', patientName: 'Priya Reddy' },
-    { id: 'ICU01', number: 'ICU-01', type: 'ICU', status: 'occupied', capacity: 1, patientId: 'P005', patientName: 'Vikash Yadav' },
-    { id: 'ICU02', number: 'ICU-02', type: 'ICU', status: 'available', capacity: 1 },
+    { id: 'R101', number: '101', type: 'General Ward', status: 'occupied', capacity: 4, patients: [{ id: 'P001', name: 'Rahul Mehta' }, {id: 'P003', name: 'Ankit Gupta'}] },
+    { id: 'R102', number: '102', type: 'General Ward', status: 'available', capacity: 4, patients: [] },
+    { id: 'R201', number: '201', type: 'Private Room', status: 'available', capacity: 1, patients: [] },
+    { id: 'R202', number: '202', type: 'Private Room', status: 'occupied', capacity: 1, patients: [{ id: 'P002', name: 'Priya Reddy' }] },
+    { id: 'ICU01', number: 'ICU-01', type: 'ICU', status: 'occupied', capacity: 1, patients: [{ id: 'P005', name: 'Vikash Yadav' }] },
+    { id: 'ICU02', number: 'ICU-02', type: 'ICU', status: 'available', capacity: 1, patients: [] },
 ];
 
 export const inventory: InventoryItem[] = [

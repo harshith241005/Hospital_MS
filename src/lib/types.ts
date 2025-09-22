@@ -106,8 +106,7 @@ export interface Room {
     type: 'General Ward' | 'Private Room' | 'ICU';
     status: 'available' | 'occupied';
     capacity: number;
-    patientId?: string;
-    patientName?: string;
+    patients: { id: string; name: string }[];
 }
 
 export interface InventoryItem {
