@@ -85,7 +85,7 @@ export function AdminSidebar() {
                 </Avatar>
                 <div className="flex flex-col">
                     <span className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</span>
-                    <span className="text-xs text-sidebar-foreground/70 truncate">{user.role}</span>
+                    <span className="text-xs text-sidebar-foreground/70 truncate capitalize">{user.role}</span>
                 </div>
             </div>
          )}
