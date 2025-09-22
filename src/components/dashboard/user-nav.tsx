@@ -19,6 +19,7 @@ export function UserNav() {
 
   const getInitials = (name: string) => {
     if (user?.role === 'admin') return 'A';
+    if (user?.role === 'doctor') return 'D';
 
     const names = name.split(' ');
     if (names.length > 1) {
@@ -26,6 +27,12 @@ export function UserNav() {
     }
     return name ? name[0] : '';
   };
+
+  const getRoleDisplayName = () => {
+    if (!user) return '';
+    const role = user.role;
+    return role.charAt(0).toUpperCase() + role.slice(1);
+  }
 
   return (
     <DropdownMenu>
@@ -40,7 +47,7 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Admin</p>
+            <p className="text-sm font-medium leading-none">{getRoleDisplayName()}</p>
           </div>
         </DropdownMenuLabel>
       </DropdownMenuContent>

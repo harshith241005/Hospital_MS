@@ -62,6 +62,7 @@ export default function ManageAppointmentsPage() {
                 <TableHead>Date</TableHead>
                 <TableHead>Time</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Assigned To</TableHead>
                 <TableHead><span className="sr-only">Actions</span></TableHead>
               </TableRow>
             </TableHeader>
@@ -76,6 +77,7 @@ export default function ManageAppointmentsPage() {
                       {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
                     </Badge>
                   </TableCell>
+                  <TableCell>{appointment.doctorName}</TableCell>
                   <TableCell>
                      <DropdownMenu>
                       <DropdownMenuTrigger asChild>

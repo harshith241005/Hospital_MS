@@ -36,6 +36,7 @@ export function DoctorSidebar() {
   const { user, logout } = useAuth();
 
   const getInitials = (name: string) => {
+    if (user?.role === 'doctor') return 'D';
     const names = name.split(' ');
     if (names.length > 1) {
       return `${names[0][0]}${names[names.length - 1][0]}`;
@@ -75,16 +76,21 @@ export function DoctorSidebar() {
                     <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                    <span className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</span>
-                    <span className="text-xs text-sidebar-foreground/70 truncate">{user.role}</span>
+                    <span className="text-sm font-medium text-sidebar-foreground truncate">Doctor</span>
                 </div>
             </div>
          )}
         <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <Settings/>
-                <span>Settings</span>
+              <SidebarMenuButton
+                href="/doctor/dashboard/settings"
+                isActive={pathname === '/doctor/dashboard/settings'}
+                asChild
+              >
+                <a href="/doctor/dashboard/settings">
+                  <Settings/>
+                  <span>Settings</span>
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
