@@ -27,7 +27,7 @@ const menuItems = [
   { href: '/doctor/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/doctor/dashboard/appointments', label: 'Manage Appointments', icon: Calendar },
   { href: '/doctor/dashboard/prescriptions', label: 'Prescriptions', icon: ClipboardPenLine },
-  { href: '/doctor/dashboard/records', label: 'Patient Medical Records', icon: FileText },
+  { href: '/doctor/dashboard/records', label: 'Patient Reports', icon: FileText },
   { href: '/doctor/dashboard/lab-requests', label: 'Lab Requests', icon: FlaskConical },
 ];
 

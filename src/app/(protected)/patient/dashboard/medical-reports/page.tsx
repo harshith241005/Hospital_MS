@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useAuth } from "@/lib/auth/use-auth";
 import { medicalReports, patients } from "@/lib/data";
-import { Download, Upload } from "lucide-react";
+import { Download } from "lucide-react";
 
 
 export default function MedicalReportsPage() {
@@ -20,12 +20,8 @@ export default function MedicalReportsPage() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Medical Reports</h1>
-                    <p className="text-muted-foreground">Upload and download your medical reports.</p>
+                    <p className="text-muted-foreground">View and download your medical reports uploaded by your doctor.</p>
                 </div>
-                 <Button>
-                    <Upload className="mr-2 h-4 w-4" />
-                    Upload Report
-                </Button>
             </div>
              <Card>
                 <CardHeader>
