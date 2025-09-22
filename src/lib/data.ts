@@ -220,7 +220,7 @@ export const healthVitals: HealthVitals = {
     ],
     bloodSugar: [
         { date: '2024-05-01', level: 110 },
-        { date: '2024-06-01', level: 115 },
+        { date: '2024-6-01', level: 115 },
         { date: '2024-07-01', level: 108 },
         { date: '2024-08-01', level: 112 },
     ]
@@ -232,12 +232,12 @@ export const feedbacks: Feedback[] = [
 ];
 
 export const rooms: Room[] = [
-    { id: 'R101', number: '101', type: 'General Ward', status: 'occupied', patientId: 'P001', patientName: 'Rahul Mehta' },
-    { id: 'R102', number: '102', type: 'General Ward', status: 'available' },
-    { id: 'R201', number: '201', type: 'Private Room', status: 'available' },
-    { id: 'R202', number: '202', type: 'Private Room', status: 'occupied', patientId: 'P002', patientName: 'Priya Reddy' },
-    { id: 'ICU01', number: 'ICU-01', type: 'ICU', status: 'occupied', patientId: 'P005', patientName: 'Vikash Yadav' },
-    { id: 'ICU02', number: 'ICU-02', type: 'ICU', status: 'available' },
+    { id: 'R101', number: '101', type: 'General Ward', status: 'occupied', capacity: 4, patientId: 'P001', patientName: 'Rahul Mehta' },
+    { id: 'R102', number: '102', type: 'General Ward', status: 'available', capacity: 4 },
+    { id: 'R201', number: '201', type: 'Private Room', status: 'available', capacity: 1 },
+    { id: 'R202', number: '202', type: 'Private Room', status: 'occupied', capacity: 1, patientId: 'P002', patientName: 'Priya Reddy' },
+    { id: 'ICU01', number: 'ICU-01', type: 'ICU', status: 'occupied', capacity: 1, patientId: 'P005', patientName: 'Vikash Yadav' },
+    { id: 'ICU02', number: 'ICU-02', type: 'ICU', status: 'available', capacity: 1 },
 ];
 
 export const inventory: InventoryItem[] = [
