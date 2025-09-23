@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,14 +31,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { doctors } from '@/lib/data';
+import { doctors, patients } from '@/lib/data';
 import { scheduleAppointment } from '@/ai/flows/ai-powered-appointment-scheduler';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth/use-auth';
 import { Loader2 } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const formSchema = z.object({
+  patient: z.string().min(1, 'Please select a patient.'),
   doctor: z.string().min(1, 'Please select a doctor.'),
   date: z.string().min(1, 'Please enter a preferred date.'),
   requirements: z.string().optional(),
@@ -54,21 +56,33 @@ export default function BookAppointmentPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      patient: '',
       doctor: '',
       date: '',
       requirements: '',
     },
   });
 
+  useEffect(() => {
+    if (user) {
+      const currentPatient = patients.find(p => p.email === user.email);
+      if (currentPatient) {
+        form.setValue('patient', currentPatient.id);
+      }
+    }
+  }, [user, form]);
+
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     setResult(null);
 
     const selectedDoctor = doctors.find((d) => d.id === values.doctor);
-    if (!selectedDoctor || !user) return;
+    const selectedPatient = patients.find((p) => p.id === values.patient);
+    if (!selectedDoctor || !selectedPatient) return;
 
     const input = {
-      patientName: user.name,
+      patientName: selectedPatient.name,
       doctorName: selectedDoctor.name,
       availableTimeSlots: selectedDoctor.availability,
       preferredDate: values.date,
@@ -104,6 +118,30 @@ export default function BookAppointmentPage() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="space-y-4">
+               <FormField
+                control={form.control}
+                name="patient"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Patient</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a patient" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {patients.map((pat) => (
+                          <SelectItem key={pat.id} value={pat.id}>
+                            {pat.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="doctor"
