@@ -33,11 +33,16 @@ function LoginPageContent() {
     try {
       login(email);
       let path = '/';
-      if (email.toLowerCase() === 'admin@hms.com') {
+      const lowercasedEmail = email.toLowerCase();
+      if (lowercasedEmail === 'admin@hms.com') {
         path = '/admin/dashboard';
-      } else if (email.toLowerCase() === 'doctor@hms.com') {
+      } else if (lowercasedEmail === 'doctor@hms.com') {
         path = '/doctor/dashboard';
-      } else if (email.toLowerCase() === 'patient@hms.com') {
+      } else if (
+        lowercasedEmail === 'patient@hms.com' || 
+        lowercasedEmail === 'priya.reddy@example.com' ||
+        lowercasedEmail === 'ankit.gupta@example.com'
+        ) {
         path = '/patient/dashboard';
       }
       router.push(path);
@@ -100,6 +105,8 @@ function LoginPageContent() {
                             <li>admin@hms.com</li>
                             <li>doctor@hms.com</li>
                             <li>patient@hms.com</li>
+                            <li>priya.reddy@example.com</li>
+                             <li>ankit.gupta@example.com</li>
                         </ul>
                         <p className="mt-2">(Any password will work)</p>
                     </div>

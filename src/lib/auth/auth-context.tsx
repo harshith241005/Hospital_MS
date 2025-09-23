@@ -18,6 +18,8 @@ const MOCK_USERS: Record<string, { role: UserRole; name: string }> = {
   'admin@hms.com': { role: 'admin', name: 'Admin User' },
   'doctor@hms.com': { role: 'doctor', name: 'Dr. Ramesh Verma' },
   'patient@hms.com': { role: 'patient', name: 'Rahul Mehta' },
+  'priya.reddy@example.com': { role: 'patient', name: 'Priya Reddy' },
+  'ankit.gupta@example.com': { role: 'patient', name: 'Ankit Gupta' },
 };
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -41,19 +43,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(
     (email: string) => {
-      const userData = MOCK_USERS[email.toLowerCase()];
+      const lowercasedEmail = email.toLowerCase();
+      const userData = MOCK_USERS[lowercasedEmail];
+      
       if (userData) {
         const newUser: User = {
-          id: email.toLowerCase(),
-          email: email.toLowerCase(),
+          id: lowercasedEmail,
+          email: lowercasedEmail,
           role: userData.role,
           name: userData.name,
         };
         localStorage.setItem('hms_user', JSON.stringify(newUser));
         setUser(newUser);
-        // Redirect logic is handled in the page itself
       } else {
-        // Handle invalid login
         throw new Error('Invalid credentials');
       }
     },
