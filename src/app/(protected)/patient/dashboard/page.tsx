@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -42,7 +43,7 @@ export default function PatientDashboardPage() {
                         />
                     )}
                     <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
-                        <h1 className="text-3xl font-bold tracking-tight text-white">Welcome, {user?.name}!</h1>
+                        <h1 className="text-3xl font-bold tracking-tight text-white">Welcome to Patient Dashboard</h1>
                         <p className="text-muted-foreground text-white/80">Manage your appointments, view reports, and stay on top of your health.</p>
                     </div>
                 </div>
