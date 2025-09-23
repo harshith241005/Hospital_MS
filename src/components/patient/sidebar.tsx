@@ -79,8 +79,7 @@ export function PatientSidebar() {
                     <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                    <span className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</span>
-                    <span className="text-xs text-sidebar-foreground/70 truncate">{user.role}</span>
+                    <span className="text-sm font-medium text-sidebar-foreground truncate">Patient</span>
                 </div>
             </div>
          )}
