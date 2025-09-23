@@ -186,9 +186,9 @@ export const medicalReports: MedicalReport[] = [
 ];
 
 export const bills: Bill[] = [
-  { id: 'B001', patientId: 'P001', date: '2024-08-15', amount: 1500, status: 'paid', details: 'Consultation & Blood Test' },
-  { id: 'B002', patientId: 'P001', date: '2024-08-20', amount: 500, status: 'pending', details: 'Follow-up Consultation' },
-  { id: 'B003', patientId: 'P002', date: '2024-08-16', amount: 8000, status: 'paid', details: 'MRI Scan & Consultation' },
+  { id: 'B001', patientId: 'P001', patientName: 'Rahul Mehta', date: '2024-08-15', amount: 1500, status: 'paid', details: 'Consultation & Blood Test', invoiceUrl: '/invoices/inv-001.pdf' },
+  { id: 'B002', patientId: 'P001', patientName: 'Rahul Mehta', date: '2024-08-20', amount: 500, status: 'pending', details: 'Follow-up Consultation', invoiceUrl: '/invoices/inv-002.pdf' },
+  { id: 'B003', patientId: 'P002', patientName: 'Priya Reddy', date: '2024-08-16', amount: 8000, status: 'paid', details: 'MRI Scan & Consultation', invoiceUrl: '/invoices/inv-003.pdf' },
 ];
 
 

@@ -70,10 +70,12 @@ export interface MedicalReport {
 export interface Bill {
   id: string;
   patientId: string;
+  patientName: string;
   date: string;
   amount: number;
   status: 'paid' | 'pending';
   details: string;
+  invoiceUrl: string;
 }
 
 
