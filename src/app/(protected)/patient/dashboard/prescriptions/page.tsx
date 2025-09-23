@@ -42,6 +42,7 @@ export default function MyPrescriptionsPage() {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Prescribed to</TableHead>
                 <TableHead>Doctor</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Medicines</TableHead>
@@ -51,6 +52,7 @@ export default function MyPrescriptionsPage() {
             <TableBody>
               {myPrescriptions.map((p) => (
                 <TableRow key={p.id}>
+                  <TableCell className="font-medium">{p.patientName}</TableCell>
                   <TableCell className="font-medium">{p.doctorName}</TableCell>
                   <TableCell>{p.date}</TableCell>
                   <TableCell>
