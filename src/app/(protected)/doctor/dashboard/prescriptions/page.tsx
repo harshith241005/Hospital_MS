@@ -87,7 +87,7 @@ export default function PrescriptionsPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Patient</TableHead>
+                <TableHead>Prescribed to</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Medicines</TableHead>
                 <TableHead>Prescribed by</TableHead>
