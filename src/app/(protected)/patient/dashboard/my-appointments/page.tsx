@@ -51,6 +51,7 @@ export default function MyAppointmentsPage() {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Patient</TableHead>
                 <TableHead>Doctor</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Time</TableHead>
@@ -60,6 +61,7 @@ export default function MyAppointmentsPage() {
             <TableBody>
               {myAppointments.map((appointment) => (
                 <TableRow key={appointment.id}>
+                  <TableCell className="font-medium">{appointment.patientName}</TableCell>
                   <TableCell className="font-medium">{appointment.doctorName}</TableCell>
                   <TableCell>{appointment.date}</TableCell>
                   <TableCell>{appointment.time}</TableCell>
