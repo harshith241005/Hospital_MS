@@ -3,12 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth/use-auth";
-import { healthAdvisories, appointments } from "@/lib/data";
+import { healthAdvisories, appointments, patients } from "@/lib/data";
 import { CalendarPlus, FileText, HeartPulse, AlertCircle, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar } from "recharts";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { useMemo } from "react";
 
 
 const yearlyVisitsData = [
@@ -21,7 +22,10 @@ const yearlyVisitsData = [
 
 export default function PatientDashboardPage() {
     const { user } = useAuth();
-    const upcomingAppointment = appointments.find(a => a.patientId === 'P001' && a.status === 'confirmed');
+    
+    const patient = useMemo(() => patients.find(p => p.email === user?.email), [user?.email]);
+    const upcomingAppointment = useMemo(() => appointments.find(a => a.patientId === patient?.id && a.status === 'confirmed'), [patient?.id]);
+    
     const patientHero = PlaceHolderImages.find(p => p.id === 'patient-hero');
 
     return (
