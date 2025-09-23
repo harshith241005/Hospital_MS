@@ -8,8 +8,6 @@ import { healthAdvisories, appointments, patients } from "@/lib/data";
 import { CalendarPlus, FileText, HeartPulse, AlertCircle, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar } from "recharts";
-import Image from "next/image";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useMemo } from "react";
 
 
@@ -27,26 +25,13 @@ export default function PatientDashboardPage() {
     const patient = useMemo(() => patients.find(p => p.email === user?.email), [user?.email]);
     const upcomingAppointment = useMemo(() => appointments.find(a => a.patientId === patient?.id && a.status === 'confirmed'), [patient?.id]);
     
-    const patientHero = PlaceHolderImages.find(p => p.id === 'patient-hero');
-
     return (
         <div className="space-y-6">
-            <Card className="overflow-hidden">
-                <div className="relative h-48 w-full">
-                    {patientHero && (
-                        <Image
-                            src={patientHero.imageUrl}
-                            alt={patientHero.description}
-                            fill
-                            className="object-cover"
-                            data-ai-hint={patientHero.imageHint}
-                        />
-                    )}
-                    <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6">
-                        <h1 className="text-3xl font-bold tracking-tight text-white">Welcome to Patient Dashboard</h1>
-                        <p className="text-muted-foreground text-white/80">Manage your appointments, view reports, and stay on top of your health.</p>
-                    </div>
-                </div>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="text-3xl font-bold tracking-tight">Welcome to Patient Dashboard</CardTitle>
+                    <CardDescription>Manage your appointments, view reports, and stay on top of your health.</CardDescription>
+                </CardHeader>
             </Card>
 
             {upcomingAppointment && (
