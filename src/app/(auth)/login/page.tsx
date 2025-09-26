@@ -16,8 +16,6 @@ import { Label } from '@/components/ui/label';
 import { Hospital } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AuthProvider } from '@/lib/auth/auth-context';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 function LoginPageContent() {
   const [email, setEmail] = useState('');
@@ -56,11 +54,9 @@ function LoginPageContent() {
     }
   };
 
-  const loginHeroImage = PlaceHolderImages.find(p => p.id === 'login-hero');
-
   return (
-    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
-       <div className="flex items-center justify-center py-12">
+    <div className="w-full min-h-screen flex items-center justify-center py-12">
+       <div className="flex items-center justify-center py-12 w-full">
             <Card className="mx-auto max-w-sm w-full shadow-lg">
                 <CardHeader className="text-center">
                     <div className="flex justify-center items-center mb-4">
@@ -105,25 +101,12 @@ function LoginPageContent() {
                             <li>admin@hms.com</li>
                             <li>doctor@hms.com</li>
                             <li>patient@hms.com</li>
-                            <li>priya.reddy@example.com</li>
-                             <li>ankit.gupta@example.com</li>
                         </ul>
                         <p className="mt-2">(Any password will work)</p>
                     </div>
                 </form>
                 </CardContent>
             </Card>
-      </div>
-      <div className="hidden bg-muted lg:block relative">
-        {loginHeroImage && (
-            <Image
-                src={loginHeroImage.imageUrl}
-                alt={loginHeroImage.description}
-                fill
-                className="object-cover"
-                data-ai-hint={loginHeroImage.imageHint}
-            />
-        )}
       </div>
     </div>
   );
@@ -135,5 +118,5 @@ export default function LoginPage() {
     <AuthProvider>
       <LoginPageContent />
     </AuthProvider>
-  )
+  );
 }
