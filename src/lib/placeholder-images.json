@@ -1,0 +1,53 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "login-hero",
+      "description": "A modern and clean hospital reception area.",
+      "imageUrl": "https://picsum.photos/seed/hospitallogin/1920/1080",
+      "imageHint": "hospital reception"
+    },
+    {
+      "id": "patient-hero",
+      "description": "A doctor consulting with a patient in a bright, friendly environment.",
+      "imageUrl": "https://picsum.photos/seed/patienthero/1200/400",
+      "imageHint": "doctor patient"
+    },
+    {
+      "id": "doctor-hero",
+      "description": "A team of professional doctors collaborating in a hospital setting.",
+      "imageUrl": "https://picsum.photos/seed/doctorhero/1200/400",
+      "imageHint": "doctor team"
+    },
+    {
+      "id": "admin-hero",
+      "description": "An aerial view of a large, modern hospital building.",
+      "imageUrl": "https://picsum.photos/seed/adminhero/1200/400",
+      "imageHint": "hospital building"
+    },
+    {
+      "id": "about-gallery-1",
+      "description": "Modern hospital facilities.",
+      "imageUrl": "https://img.freepik.com/premium-photo/modern-hospital-facilities_810293-109223.jpg",
+      "imageHint": "hospital facilities"
+    },
+    {
+      "id": "about-gallery-2",
+      "description": "A clean and modern hospital corridor.",
+      "imageUrl": "https://media.istockphoto.com/id/1454794642/photo/empty-corridor-hospital.jpg?s=612x612&w=0&k=20&c=w_c_i1Vfx2XoVXRiHtrPSlzPl5WYU0Uq_8osik9inXA=",
+      "imageHint": "hospital corridor"
+    },
+    {
+      "id": "about-gallery-3",
+      "description": "A medical professional providing care.",
+      "imageUrl": "https://picsum.photos/seed/medicalcare/600/400",
+      "imageHint": "medical care"
+    },
+    {
+      "id": "about-gallery-4",
+      "description": "A pharmacist explaining something to a doctor.",
+      "imageUrl": "https://media.istockphoto.com/id/1476261444/photo/young-pharmaceutic-seller-explaining-something-to-doctor-in-hospital.jpg?s=612x612&w=0&k=20&c=pEJ7PefqTUcR5hPhB3jLIvAUOzPA6FVPlw391Oxqnrw=",
+      "imageHint": "hospital pharmacy"
+    }
+  ]
+}
