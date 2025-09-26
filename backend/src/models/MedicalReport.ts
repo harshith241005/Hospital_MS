@@ -22,3 +22,4 @@ const MedicalReportSchema = new Schema<MedicalReportDocument>(
 export const MedicalReport: Model<MedicalReportDocument> = mongoose.models.MedicalReport || mongoose.model<MedicalReportDocument>('MedicalReport', MedicalReportSchema);
 
 
+

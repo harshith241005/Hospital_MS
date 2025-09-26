@@ -24,3 +24,4 @@ const BillSchema = new Schema<BillDocument>(
 export const Bill: Model<BillDocument> = mongoose.models.Bill || mongoose.model<BillDocument>('Bill', BillSchema);
 
 
+

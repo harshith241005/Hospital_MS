@@ -27,3 +27,4 @@ const PrescriptionSchema = new Schema<PrescriptionDocument>(
 export const Prescription: Model<PrescriptionDocument> = mongoose.models.Prescription || mongoose.model<PrescriptionDocument>('Prescription', PrescriptionSchema);
 
 
+

@@ -24,3 +24,4 @@ const PatientSchema = new Schema<PatientDocument>(
 export const Patient: Model<PatientDocument> = mongoose.models.Patient || mongoose.model<PatientDocument>('Patient', PatientSchema);
 
 
+
